@@ -1,0 +1,95 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background: #003366;
+    color: white;
+}
+header .logo span {
+    color: #FFD700;
+}
+nav a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+}
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Banner */
+.banner {
+    text-align: center;
+    background: url('https://picsum.photos/1200/400') center/cover no-repeat;
+    color: white;
+    padding: 100px 20px;
+}
+.banner .btn {
+    background: #FFD700;
+    color: black;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* Serviços */
+.destaque {
+    text-align: center;
+    padding: 40px 20px;
+}
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.card {
+    background: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+}
+
+/* Formulário */
+.form-section {
+    padding: 40px;
+    background: #f9f9f9;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+}
+form input, form textarea {
+    margin-bottom: 10px;
+    padding: 10px;
+}
+form button {
+    background: #003366;
+    color: white;
+    padding: 10px;
+    border: none;
+}
+
+/* Footer */
+footer {
+    background: #222;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.footer-info p {
+    margin: 5px 0;
+}
+.mapa iframe {
+    border: 0;
+    border-radius: 8px;
+}

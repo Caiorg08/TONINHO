@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Despachante Rápido - Documentação Veicular</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e293b;
+            --primary-dark: #0f172a;
+            --secondary: #334155;
+            --accent: #d4af37;
+            --accent-light: #f4d03f;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.08);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            --border: rgba(212, 175, 55, 0.1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Background Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 0;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 10px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--white);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Banner Hero */
+        .banner {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            padding: 100px 20px 50px;
+        }
+
+        .banner-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .banner h1 {
+            font-size: 3.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            animation: slideInUp 1s ease;
+        }
+
+        .banner p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            font-weight: 300;
+            opacity: 0.9;
+            animation: slideInUp 1s ease 0.2s both;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: var(--primary);
+            padding: 18px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+            animation: slideInUp 1s ease 0.4s both;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Services Section */
+        .destaque {
+            padding: 100px 20px;
+            background: var(--white);
+            position: relative;
+        }
+
+        .destaque::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to bottom, var(--secondary), var(--white));
+            clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .destaque h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .destaque h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            border-radius: 2px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(30, 41, 59, 0.15);
+            border-color: var(--accent);
+        }
+
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--accent);
+            font-size: 1.8em;
+            box-shadow: 0 8px 20px rgba(30, 41, 59, 0.2);
+        }
+
+        .card h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .card p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Form Section */
+        .form-section {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            position: relative;
+        }
+
+        .form-section::before {
+            content: '';
+           
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: var(--white);
+            clip-path: polygon(0 100%, 100% 0, 100% 100%);
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-section h2 {
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        form input, form textarea {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1em;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        form input:focus, form textarea:focus {
+            outline: none;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        form button {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            color: var(--primary);
+            padding: 18px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 60px 20px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .footer-info h3 {
+            margin-bottom: 20px;
+            color: var(--accent);
+            font-size: 1.3em;
+        }
+
+        .footer-info p {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-info p:hover {
+            color: var(--accent);
+        }
+
+        .footer-info i {
+            color: var(--accent);
+            width: 20px;
+        }
+
+        .mapa {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .mapa iframe {
+            width: 100%;
+            height: 250px;
+            border: none;
+            filter: grayscale(20%);
+            transition: filter 0.3s ease;
+        }
+
+        .mapa:hover iframe {
+            filter: grayscale(0%);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 15px;
+            }
+
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--primary);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: var(--shadow);
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .banner h1 {
+                font-size: 2.5em;
+            }
+
+            .banner p {
+                font-size: 1.1em;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .form-container {
+                margin: 0 15px;
+                padding: 30px 20px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(30, 41, 59, 0.3);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Success Animation */
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #27ae60;
+            color: var(--white);
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1001;
+        }
+
+        .success-message.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Background Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        <i class="fas fa-check-circle"></i> Mensagem enviada com sucesso!
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="header-content">
+            <div class="logo">Despachante <span>Toninho</span></div>
+            <nav id="nav">
+                <a href="index.html">Início</a>
+                <a href="servicos.html">Serviços</a>
+                <a href="sobre.html">Sobre Nós</a>
+                <a href="#agendamento">Agendamento</a>
+            </nav>
+            <div class="mobile-menu" id="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner Hero -->
+    <section class="banner" id="inicio">
+        <div class="banner-content">
+            <h1>Resolvemos sua documentação com rapidez e segurança</h1>
+            <p>Licenciamento, transferência, CNH e muito mais!</p>
+            <a href="#agendamento" class="btn-primary">
+                <i class="fas fa-calendar-alt"></i> Agende Agora
+            </a>
+        </div>
+    </section>
+
+    <!-- Serviços em Destaque -->
+    <section class="destaque" id="servicos">
+        <div class="container">
+            <h2>Principais Serviços</h2>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Licenciamento</h3>
+                    <p>Renove seu documento de forma simples e rápida. Cuidamos de toda a burocracia para você.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3>Transferência</h3>
+                    <p>Transferência de veículo com total segurança. Processo ágil e sem complicações.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <h3>2ª Via CNH</h3>
+                    <p>Solicite a segunda via da sua carteira sem complicações. Processo rápido e eficiente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulário de Agendamento -->
+    <section id="agendamento" class="form-section">
+        <div class="container">
+            <div class="form-container">
+                <h2><i class="fas fa-calendar-check"></i> Agende seu Atendimento</h2>
+                <form id="whatsappForm">
+                    <input type="text" id="nome" placeholder="Seu Nome Completo" required>
+                    <input type="text" id="servico" placeholder="Serviço Desejado" required>
+                    <input type="date" id="data" required>
+                    <textarea id="mensagem" placeholder="Mensagem adicional (opcional)" rows="4"></textarea>
+                    <button type="submit">
+                        <i class="fab fa-whatsapp"></i> Enviar pelo WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>Contato</h3>
+                <p><i class="fas fa-phone"></i> (31) 99971-7678</p>
+                <p><i class="fab fa-whatsapp"></i> (31) 99971-7678</p>
+                <p><i class="fas fa-envelope"></i> Antoniopdespachante@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Belo Horizonte, MG</p>
+            </div>
+            <div class="mapa">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3750.8267837503773!2d-43.91529032442738!3d-19.857149736664273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa69adb7f4e05b1%3A0x9cb1f53e08cebb4f!2sR.%20Potengi%2C%2069%20-%20S%C3%A3o%20Gabriel%2C%20Belo%20Horizonte%20-%20MG%2C%2031980-650!5e0!3m2!1spt-BR!2sbr!4v1692018000000!5m2!1spt-BR!2sbr" 
+                    loading="lazy" allowfullscreen></iframe>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Despachante Rápido. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Loading Screen
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hide');
+            }, 1500);
+        });
+
+        // Create floating particles
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 60 + 10 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                particles.appendChild(particle);
+            }
+        }
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobileMenu').addEventListener('click', function() {
+            const nav = document.getElementById('nav');
+            nav.classList.toggle('active');
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form handling
+        document.getElementById('whatsappForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nome = document.getElementById('nome').value;
+            const servico = document.getElementById('servico').value;
+            const data = document.getElementById('data').value;
+            const mensagem = document.getElementById('mensagem').value;
+
+            // Format date
+            const dataFormatada = new Date(data).toLocaleDateString('pt-BR');
+            
+            let texto = `🔷 *Agendamento Despachante Rápido* 🔷\n\n`;
+            texto += `👤 *Nome:* ${nome}\n`;
+            texto += `🚗 *Serviço:* ${servico}\n`;
+            texto += `📅 *Data:* ${dataFormatada}\n`;
+            if (mensagem) {
+                texto += `💬 *Mensagem:* ${mensagem}\n`;
+            }
+            texto += `\nAguardo retorno para confirmação! 😊`;
+
+            const url = `https://wa.me/5531999999999?text=${encodeURIComponent(texto)}`;
+            
+            // Show success message
+            const successMsg = document.getElementById('successMessage');
+            successMsg.classList.add('show');
+            
+            // Open WhatsApp
+            setTimeout(() => {
+                window.open(url, '_blank');
+                successMsg.classList.remove('show');
+                
+                // Reset form
+                this.reset();
+            }, 1500);
+        });
+
+        // Animate cards on scroll
+        function animateOnScroll() {
+            const cards = document.querySelectorAll('.card');
+            const windowHeight = window.innerHeight;
+            
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                
+                if (cardTop < windowHeight - 100) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Set initial card states
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'all 0.6s ease';
+            });
+            
+            // Animate on scroll
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Initial check
+            
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('data').setAttribute('min', today);
+        });
+
+        // Add hover sound effect (optional)
+        document.querySelectorAll('.card, .btn-primary, form button').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                this.style.transform = this.style.transform || 'translateY(-5px)';
+            });
+        });
+    </script>
+</body>
+</html>
